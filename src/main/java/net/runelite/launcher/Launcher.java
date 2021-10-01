@@ -81,11 +81,6 @@ public class Launcher
 		{
 		}
 		
-		{
-			// Lunaria properties.
-			prop.setProperty("openosrs.bootstrapMode", "NIGHTLY");
-		}
-		
 		boolean askmode = Optional.ofNullable(prop.getProperty("openosrs.askMode")).map(Boolean::valueOf).orElse(true);
 		String bootstrapMode = prop.getProperty("openosrs.bootstrapMode");
 		boolean disableHw = Boolean.parseBoolean(prop.getProperty("openosrs.disableHw"));
