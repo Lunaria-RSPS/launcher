@@ -53,16 +53,16 @@ java -jar packr_${PACKR_VERSION}.jar \
 
 # modify packr exe manifest to enable Windows dpi scaling
 "C:\Program Files (x86)\Resource Hacker\ResourceHacker.exe" \
-    -open native-win32/OpenOSRS.exe \
-    -save native-win32/OpenOSRS.exe \
+    -open native-win32/Lunaria.exe \
+    -save native-win32/Lunaria.exe \
     -action addoverwrite \
     -res packr/openosrs.manifest \
     -mask MANIFEST,1,
 
 # packr on Windows doesn't support icons, so we use resourcehacker to include it
 "C:\Program Files (x86)\Resource Hacker\ResourceHacker.exe" \
-    -open native-win32/OpenOSRS.exe \
-    -save native-win32/OpenOSRS.exe \
+    -open native-win32/Lunaria.exe \
+    -save native-win32/Lunaria.exe \
     -action add \
     -res openosrs.ico \
     -mask ICONGROUP,MAINICON,
