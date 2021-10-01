@@ -24,27 +24,16 @@
  */
 package net.runelite.launcher;
 
-import java.awt.Color;
-import java.awt.Cursor;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.GridLayout;
-import java.util.Arrays;
-import java.util.List;
-import javax.swing.BorderFactory;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JProgressBar;
-import javax.swing.JScrollPane;
-import javax.swing.JViewport;
+import lombok.AccessLevel;
+import lombok.Getter;
+
+import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.MatteBorder;
 import javax.swing.plaf.basic.BasicProgressBarUI;
-import lombok.AccessLevel;
-import lombok.Getter;
+import java.awt.*;
+import java.util.Arrays;
+import java.util.List;
 
 @Getter
 class MessagePanel extends JPanel
@@ -53,7 +42,7 @@ class MessagePanel extends JPanel
 	private static final Dimension BAR_SIZE = new Dimension(PANEL_SIZE.width, 30);
 	private static final int MESSAGE_AREA_PADDING = 15;
 
-	private final JLabel titleLabel = new JLabel("Welcome to OpenOSRS");
+	private final JLabel titleLabel = new JLabel("Welcome to Lunaria");
 	private final JLabel messageArea;
 	private final JLabel bootstrapChannel;
 	private final JLabel barLabel = new JLabel("Doing something important");
@@ -113,10 +102,10 @@ class MessagePanel extends JPanel
 		buttonPanel.setBackground(ColorScheme.DARKER_GRAY_COLOR);
 		buttonPanel.setOpaque(true);
 
-		stableBtn = addButton("Stable", "The Stable option isn't the most up-to-date build, it will use the most stable OpenOSRS build.");
+		stableBtn = addButton("Stable", "The Stable option isn't the most up-to-date build, it will use the most stable Lunaria build.");
 		buttonPanel.add(stableBtn);
 
-		nightlyBtn = addButton("Nightly", "The Nightly option is the most up-to-date build, it will use the latest OpenOSRS build which is built each night.");
+		nightlyBtn = addButton("Nightly", "The Nightly option is the most up-to-date build, it will use the latest Lunaria build which is built each night.");
 		buttonPanel.add(nightlyBtn);
 
 		bootstrapChannel.setVisible(false);

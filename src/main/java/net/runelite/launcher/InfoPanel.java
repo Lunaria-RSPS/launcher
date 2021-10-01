@@ -25,32 +25,22 @@
 package net.runelite.launcher;
 
 import com.google.common.io.ByteStreams;
-import java.awt.Color;
-import java.awt.Cursor;
-import java.awt.Dimension;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Image;
+import lombok.extern.slf4j.Slf4j;
+
+import javax.swing.*;
+import javax.swing.border.CompoundBorder;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.MatteBorder;
+import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
-import java.io.BufferedReader;
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.border.CompoundBorder;
-import javax.swing.border.EmptyBorder;
-import javax.swing.border.MatteBorder;
-import lombok.extern.slf4j.Slf4j;
+
 import static net.runelite.launcher.Launcher.LAUNCHER_BUILD;
 import static net.runelite.launcher.Launcher.USER_AGENT;
 
@@ -67,8 +57,8 @@ class InfoPanel extends JPanel
 	private static final Dimension VERSION_SIZE = new Dimension(PANEL_SIZE.width, 25);
 
 	private static final String TROUBLESHOOTING_URL = "https://github.com/runelite/runelite/wiki/Troubleshooting-problems-with-the-client";
-	private static final String DISCORD_INVITE_LINK = "https://discordapp.com/invite/openosrs";
-	private static final String LAUNCHER_DOWNLOAD_LINK = "https://github.com/open-osrs/launcher/releases";
+	private static final String DISCORD_INVITE_LINK = "https://lunariaps.com/discord";
+	private static final String LAUNCHER_DOWNLOAD_LINK = "https://lunariaps.com/play";
 
 	InfoPanel(String mode)
 	{
@@ -125,7 +115,7 @@ class InfoPanel extends JPanel
 		this.add(logsFolder, c);
 		c.gridy++;
 
-		final JLabel discord = createPanelButton("Get help on Discord", "Instant invite link to join the OpenOSRS discord", () -> LinkBrowser.browse(DISCORD_INVITE_LINK));
+		final JLabel discord = createPanelButton("Get help on Discord", "Instant invite link to join the Lunaria discord", () -> LinkBrowser.browse(DISCORD_INVITE_LINK));
 		this.add(discord, c);
 		c.gridy++;
 

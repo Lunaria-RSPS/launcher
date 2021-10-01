@@ -34,29 +34,6 @@ import com.google.common.io.ByteStreams;
 import com.google.common.io.Files;
 import com.google.gson.Gson;
 import com.vdurmont.semver4j.Semver;
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Enumeration;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.Properties;
-import java.util.Set;
-import java.util.regex.Pattern;
-import java.util.stream.Collectors;
-import javax.swing.JButton;
 import joptsimple.ArgumentAcceptingOptionSpec;
 import joptsimple.OptionParser;
 import joptsimple.OptionSet;
@@ -65,17 +42,26 @@ import net.runelite.launcher.beans.Artifact;
 import net.runelite.launcher.beans.Bootstrap;
 import org.slf4j.LoggerFactory;
 
+import javax.swing.*;
+import java.io.*;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
+import java.util.*;
+import java.util.regex.Pattern;
+import java.util.stream.Collectors;
+
 @Slf4j
 public class Launcher
 {
-	private static final File RUNELITE_DIR = new File(System.getProperty("user.home"), ".runelite");
+	private static final File RUNELITE_DIR = new File(System.getProperty("user.home"), ".lunaria");
 	private static final File LOGS_DIR = new File(RUNELITE_DIR, "logs");
 	private static final File REPO_DIR = new File(RUNELITE_DIR, "repository2");
 	private static final File CRASH_FILES = new File(LOGS_DIR, "jvm_crash_pid_%p.log");
-	static final String LAUNCHER_BUILD = "https://raw.githubusercontent.com/open-osrs/launcher/master/build.gradle.kts";
-	private static final String CLIENT_BOOTSTRAP_STAGING_URL = "https://raw.githubusercontent.com/open-osrs/hosting/master/bootstrap-staging.json";
-	private static final String CLIENT_BOOTSTRAP_STABLE_URL = "https://raw.githubusercontent.com/open-osrs/hosting/master/bootstrap-openosrs.json";
-	static final String USER_AGENT = "OpenOSRS/" + LauncherProperties.getVersion();
+	static final String LAUNCHER_BUILD = "https://raw.githubusercontent.com/Lunaria-RSPS/launcher/master/build.gradle.kts";
+	private static final String CLIENT_BOOTSTRAP_STAGING_URL = "https://lunariaps.com/play/bootstrap-staging.json";
+	private static final String CLIENT_BOOTSTRAP_STABLE_URL = "https://lunariaps.com/play/bootstrap-openosrs.json";
+	static final String USER_AGENT = "Lunaria/" + LauncherProperties.getVersion();
 	private static final boolean enforceDependencyHashing = true;
 	private static boolean nightly = false;
 	private static boolean staging = false;
@@ -94,7 +80,12 @@ public class Launcher
 		catch (IOException ignored)
 		{
 		}
-
+		
+		{
+			// Lunaria properties.
+			prop.setProperty("openosrs.bootstrapMode", "NIGHTLY");
+		}
+		
 		boolean askmode = Optional.ofNullable(prop.getProperty("openosrs.askMode")).map(Boolean::valueOf).orElse(true);
 		String bootstrapMode = prop.getProperty("openosrs.bootstrapMode");
 		boolean disableHw = Boolean.parseBoolean(prop.getProperty("openosrs.disableHw"));
@@ -202,7 +193,7 @@ public class Launcher
 			OpenOSRSSplashScreen.init(nightly ? "Nightly" : stable ? "Stable" : "Staging");
 			OpenOSRSSplashScreen.stage(0, "Setting up environment");
 
-			log.info("OpenOSRS Launcher version {}", LauncherProperties.getVersion());
+			log.info("Lunaria Launcher version {}", LauncherProperties.getVersion());
 			// Print out system info
 			log.debug("Java Environment:");
 			final Properties p = System.getProperties();
@@ -277,8 +268,8 @@ public class Launcher
 			}
 			if (jvmTooOld)
 			{
-				OpenOSRSSplashScreen.setError("Your Java installation is too old", "OpenOSRS now requires Java " +
-					bootstrap.getRequiredJVMVersion() + " to run. You can get a platform specific version from openosrs.com," +
+				OpenOSRSSplashScreen.setError("Your Java installation is too old", "Lunaria now requires Java " +
+					bootstrap.getRequiredJVMVersion() + " to run. You can get a platform specific version from LunariaPS.com," +
 					" or install a newer version of Java.");
 				return;
 			}
@@ -286,7 +277,7 @@ public class Launcher
 			if (!checkVersion(bootstrap))
 			{
 				log.error("launcher version too low");
-				OpenOSRSSplashScreen.setError("Your launcher is outdated!", "The launcher you're using is oudated. Please either download a newer version from openosrs.com or by clicking the update button on the right hand side.");
+				OpenOSRSSplashScreen.setError("Your launcher is outdated!", "The launcher you're using is oudated. Please either download a newer version from LunariaPS.com or by clicking the update button on the right hand side.");
 				return;
 			}
 
@@ -368,14 +359,14 @@ public class Launcher
 		catch (Exception e)
 		{
 			log.error("Failure during startup", e);
-			OpenOSRSSplashScreen.setError("OpenOSRS has encountered an unexpected error during startup!", "You have encountered an issue, please check your log files for a more detailed error message.");
+			OpenOSRSSplashScreen.setError("Lunaria has encountered an unexpected error during startup!", "You have encountered an issue, please check your log files for a more detailed error message.");
 
 		}
 		catch (Error e)
 		{
 			// packr seems to eat exceptions thrown out of main, so at least try to log it
 			log.error("Failure during startup", e);
-			OpenOSRSSplashScreen.setError("OpenOSRS has encountered an unexpected error during startup!", "You have encountered an issue, please check your log files for a more detailed error message.");
+			OpenOSRSSplashScreen.setError("Lunaria has encountered an unexpected error during startup!", "You have encountered an issue, please check your log files for a more detailed error message.");
 
 			throw e;
 		}

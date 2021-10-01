@@ -24,17 +24,13 @@
  */
 package net.runelite.launcher;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.lang.reflect.InvocationTargetException;
-import java.util.List;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JProgressBar;
-import javax.swing.SwingUtilities;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
+
+import javax.swing.*;
+import java.awt.*;
+import java.lang.reflect.InvocationTargetException;
+import java.util.List;
 
 @Slf4j
 public class OpenOSRSSplashScreen extends JFrame
@@ -47,7 +43,7 @@ public class OpenOSRSSplashScreen extends JFrame
 
 	private OpenOSRSSplashScreen(String mode)
 	{
-		this.setTitle("OpenOSRS");
+		this.setTitle("Lunaria");
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		this.setSize(FRAME_SIZE);
 		this.setLayout(new BorderLayout());
